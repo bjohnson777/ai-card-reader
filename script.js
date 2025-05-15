@@ -1,18 +1,29 @@
 document.getElementById("oneCardBtn").addEventListener("click", function () {
-  fetchReading("1");
+  fetchReading(1);
 });
 
 document.getElementById("threeCardBtn").addEventListener("click", function () {
-  fetchReading("3");
+  fetchReading(3);
 });
 
-function fetchReading(type) {
+function fetchReading(cardCount) {
   const resultDiv = document.getElementById("result");
   resultDiv.innerHTML = "<p>🔄 Shuffling cards... aligning with the Nexus...</p>";
 
-  // Simulate loading
-  setTimeout(() => {
-    // Replace this with a real fetch to PHP later
-    resultDiv.innerHTML = `<p>🔮 Your ${type}-card reading will appear here (PHP backend coming soon).</p>`;
-  }, 1500);
+  fetch(`draw-cards.php?cards=${cardCount}`)
+    .then(response => response.json())
+    .then(data => {
+      let html = '';
+      data.cards.forEach((card, index) => {
+        html += `<div class="card">
+                   <h3>Card ${index + 1}: ${card.name}</h3>
+                   <p>${card.meaning}</p>
+                 </div>`;
+      });
+      resultDiv.innerHTML = html;
+    })
+    .catch(error => {
+      resultDiv.innerHTML = `<p>Error fetching reading: ${error}</p>`;
+    });
 }
+

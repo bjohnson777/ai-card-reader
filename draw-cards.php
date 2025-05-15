@@ -1,19 +1,6 @@
 <?php
 // Set the content type to JSON
 header('Content-Type: application/json');
-//⚙️ How It Works
-
-/*
-
-Deck Definition: An array $deck contains multiple tarot cards, each with a name and meaning.
-
-Card Selection: The script checks for a cards parameter in the GET request (e.g., ?cards=3). If present and valid (1 or 3), it sets the number of cards to draw accordingly. Otherwise, it defaults to 1.
-
-Shuffling and Drawing: The deck is shuffled using shuffle(), and the specified number of cards are drawn using array_slice().
-JSON Response: The drawn cards are encoded into JSON format and returned with the appropriate Content-Type header.
-(Many Thanks to SEntry and Stack Overflow)
-
-*/
 
 
 // Define a sample tarot deck
